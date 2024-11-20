@@ -139,16 +139,15 @@ SimCRM/
 #### **Future Enhancements**
 
 - Add search functionality to filter customers.  
-- Support for updating customer details.  
 - Add database integration for persistent storage.  
-- Enhance authentication with login credentials.  
+- Enhance authentication with login credentials (PASSWORD).  
 
 ---
 
 #### **Contributors**
 
 - **Your Name**  
-   Email: [Your Email]  
+   Email: f20230129@dubai.bits-pilani.ac.in
 
 Feel free to fork this project or contribute by raising issues or submitting pull requests.
 
