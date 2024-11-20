@@ -107,4 +107,94 @@ public class CRMGUI extends JFrame {
                 String email = emailField.getText();
                 String phone = phoneField.getText();
 
-                if (name.isEmpty() || email
+                if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill all fields for Individual Customer.");
+                    return;
+                }
+
+                IndividualCustomer ic = new IndividualCustomer(id, name, email, phone);
+                crm.addCustomer(ic);
+                tableModel.addRow(ic.toRow());
+
+                idField.setText("");
+                nameField.setText("");
+                emailField.setText("");
+                companyField.setText("");
+                phoneField.setText("");
+
+                JOptionPane.showMessageDialog(this, "Individual Customer added successfully!");
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid Customer ID. Please enter a number.");
+            }
+        });
+
+        panel.add(addBusinessButton);
+        panel.add(addIndividualButton);
+        return panel;
+    }
+
+    // Load customers from a CSV file
+    private void loadCSV() {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(",");
+                    int id = Integer.parseInt(values[0]);
+                    String name = values[1];
+                    String email = values[2];
+                    if (values.length == 4) {
+                        String company = values[3];
+                        BusinessCustomer bc = new BusinessCustomer(id, name, email, company);
+                        crm.addCustomer(bc);
+                        tableModel.addRow(bc.toRow());
+                    } else if (values.length == 5) {
+                        String phone = values[4];
+                        IndividualCustomer ic = new IndividualCustomer(id, name, email, phone);
+                        crm.addCustomer(ic);
+                        tableModel.addRow(ic.toRow());
+                    }
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error loading CSV: " + ex.getMessage());
+            }
+        }
+    }
+
+    // Save customers to a CSV file
+    private void saveToCSV() {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try (FileWriter writer = new FileWriter(file)) {
+                for (Customer customer : crm.getCustomers()) {
+                    if (customer instanceof BusinessCustomer) {
+                        writer.write(customer.getCustomerID() + "," + customer.getName() + "," + customer.getEmail() + "," +
+                                ((BusinessCustomer) customer).toRow()[3] + "\n");
+                    } else if (customer instanceof IndividualCustomer) {
+                        writer.write(customer.getCustomerID() + "," + customer.getName() + "," + customer.getEmail() + ",," +
+                                ((IndividualCustomer) customer).toRow()[4] + "\n");
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Saved to CSV successfully!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error saving CSV: " + ex.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String username = JOptionPane.showInputDialog("Enter username to log in:");
+        if (username != null && !username.trim().isEmpty()) {
+            SwingUtilities.invokeLater(() -> new CRMGUI(username));
+        } else {
+            JOptionPane.showMessageDialog(null, "Username cannot be empty!");
+            System.exit(0);
+        }
+    }
+}
