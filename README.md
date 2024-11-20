@@ -148,7 +148,7 @@ SimCRM/
 
 - **Koushik Sundaresan**  
    Email: f20230129@dubai.bits-pilani.ac.in
-  - **Tyshna Sahini**  
+- **Tyshna Sahini**  
    Email: f20230207@dubai.bits-pilani.ac.in
 
 Feel free to fork this project or contribute by raising issues or submitting pull requests.
