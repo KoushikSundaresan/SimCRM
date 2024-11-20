@@ -146,8 +146,10 @@ SimCRM/
 
 #### **Contributors**
 
-- **Your Name**  
+- **Koushik Sundaresan**  
    Email: f20230129@dubai.bits-pilani.ac.in
+  - **Tyshna Sahini**  
+   Email: f20230207@dubai.bits-pilani.ac.in
 
 Feel free to fork this project or contribute by raising issues or submitting pull requests.
 
@@ -156,3 +158,5 @@ Feel free to fork this project or contribute by raising issues or submitting pul
 #### **License**
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+SimCRM © 2024 by Koushik Sundaresan & Tyshna Sahni is licensed under CC BY-NC 4.0. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/
